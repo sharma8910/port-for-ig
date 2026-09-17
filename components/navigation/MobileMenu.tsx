@@ -11,6 +11,7 @@ export function MobileMenu({ open }: { open: boolean }) {
       <a href="#about">About-hobby</a>
       <a href="#building">Build-Source</a>
       <a href="#contact">Contact</a>
+      <a href="#instagramSection">InstaGrowth</a>
     </motion.div>
   ) : null;
 }

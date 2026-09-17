@@ -10,6 +10,7 @@ const links = [
   { label: "ABOUT", href: "#about" },
   { label: "BUILD/SOURCE", href: "#building" },
   { label: "CONTACT", href: "#contact" },
+  { label: "INSTAGROWTH", href: "#instagramSection" },
 ];
 export function Navbar() {
   const [active, setActive] = useState("HOME");

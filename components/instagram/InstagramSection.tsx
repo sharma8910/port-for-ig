@@ -78,8 +78,8 @@ const tags = [
 export function InstagramSection() {
   return (
     <section
-      className="section instagram !grid-cols-1 !gap-8 !bg-[#ddf3ff] !px-[max(5vw,1.25rem)] !py-[clamp(5rem,9vw,9rem)] lg:!grid-cols-[minmax(230px,0.72fr)_minmax(0,1.28fr)] lg:!gap-[clamp(2.5rem,6vw,6rem)]"
-      id="instagram"
+      className=" section instagram !grid-cols-1 !gap-8 !bg-[#ddf3ff] !px-[max(5vw,1.25rem)] !py-[clamp(5rem,9vw,9rem)] lg:!grid-cols-[minmax(230px,0.72fr)_minmax(0,1.28fr)] lg:!gap-[clamp(2.5rem,6vw,6rem)]"
+      id="instagramSection"
     >
       <div className="insta-copy !max-w-none">
         <div className="eyebrow">07 / FROM INSTAGRAM</div>
