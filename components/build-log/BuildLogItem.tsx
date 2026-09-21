@@ -22,6 +22,8 @@ export function BuildLogItem({
       className="log-link"
       href={link}
       aria-label={`${text} (${category})`}
+      target="_blank"
+      rel="noreferrer"
     >
       <motion.article
         className="log-item"

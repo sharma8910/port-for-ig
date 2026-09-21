@@ -16,6 +16,8 @@ export function FloatingTech() {
         <motion.a
           key={label}
           href={href}
+          target="_blank"
+          rel="noreferrer"
           className={`tech tech-${i}`}
           animate={{
             y: [0, i % 2 ? -10 : 9, 0],
@@ -55,6 +57,8 @@ export function FloatingTechs() {
         <motion.a
           key={label}
           href={href}
+          target="_blank"
+          rel="noreferrer"
           className={`tech tech-${i}`}
           animate={{
             y: [0, i % 2 ? -10 : 9, 0],

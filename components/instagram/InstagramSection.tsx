@@ -1,10 +1,18 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "motion/react";
 import {
   ArrowUpRight,
-  Bookmark,
   Heart,
   MessageCircle,
-  Send,
+  Sparkles,
+  X,
+  ExternalLink,
+  Code,
+  BookOpen,
+  Users,
 } from "lucide-react";
 import type { SVGProps } from "react";
 
@@ -31,41 +39,65 @@ function InstagramMark({
 }
 
 type InstagramPost = {
+  id: string;
   image: string;
   caption: string;
-  date: string;
-  likes: string;
-  comments: string;
+  topicTag: string;
+  type: "REEL" | "POST";
+  deeperExplanation: string;
+  codeOrKeyConcept: string;
+  relatedResourceName: string;
+  relatedResourceLink: string;
 };
 
 const posts: InstagramPost[] = [
   {
+    id: "post-1",
     image: "/images/instagram/cost-of-learning.jpg",
-    caption: "Learning system design one focused session at a time.",
-    date: "2 days ago",
-    likes: "TBD",
-    comments: "TBD",
+    caption: "The Real Cost of Learning System Design — One Focused Session at a Time.",
+    topicTag: "SYSTEM DESIGN",
+    type: "REEL",
+    deeperExplanation:
+      "Learning how to design distributed systems takes consistency over intensity. In this reel, I broke down how to approach load balancing, caching tiers, and API gateway routing.",
+    codeOrKeyConcept: "Consistent Hashing & Cache Eviction (LRU vs LFU)",
+    relatedResourceName: "System Design Reference PDF",
+    relatedResourceLink: "https://drive.google.com/file/d/1rWdwyXwsxZLPKc-RMY_iCCge4RfhF4nV/view?usp=drivesdk",
   },
   {
+    id: "post-2",
     image: "/images/instagram/rag-architecture.jpg",
-    caption: "RAG architecture notes, experiments, and a little more data.",
-    date: "4 days ago",
-    likes: "TBD",
-    comments: "TBD",
+    caption: "RAG Architecture Notes, Experiments, and Chunking Strategies.",
+    topicTag: "AI / RAG",
+    type: "POST",
+    deeperExplanation:
+      "A deep dive into document chunking strategies. Small chunks retain precision; large chunks preserve context. The sweet spot is 512 tokens with 50-token overlap.",
+    codeOrKeyConcept: "Cosine Similarity: cos(θ) = (A · B) / (||A|| ||B||)",
+    relatedResourceName: "RAG Architecture Guide PDF",
+    relatedResourceLink: "https://drive.google.com/file/d/1MgvEUlBdKsX9SEdcENt5q3qrEXbN2L6I/view?usp=drivesdk",
   },
   {
+    id: "post-3",
     image: "/images/instagram/vibe-coders.jpg",
-    caption: "The late-night coder energy is real.",
-    date: "6 days ago",
-    likes: "TBD",
-    comments: "TBD",
+    caption: "Late Night Coder Energy — Debugging WebSockets & Async Python.",
+    topicTag: "BACKEND LOGIC",
+    type: "REEL",
+    deeperExplanation:
+      "Late night session fixing concurrency bottlenecks in FastAPI coroutines and client socket reconnect handlers for IO.Social.",
+    codeOrKeyConcept: "asyncio.gather(*tasks) & Exception Shielding",
+    relatedResourceName: "IO.Social Case Study",
+    relatedResourceLink: "#work",
   },
   {
+    id: "post-4",
     image: "/images/instagram/job-ready.jpg",
-    caption: "Day 2 of building the habits that make me job ready.",
-    date: "1 week ago",
-    likes: "TBD",
-    comments: "TBD",
+    caption: "Day 2 of Building Habits That Make Me Job Ready.",
+    topicTag: "BUILD IN PUBLIC",
+    type: "POST",
+    deeperExplanation:
+      "Focusing on what recruiters and senior engineers actually look for: production-ready git commits, clean modular code, unit tests, and documented APIs.",
+    codeOrKeyConcept: "API Contracts & Pydantic Schema Validation",
+    relatedResourceName: "Sonu's Developer Journey Roadmap",
+    relatedResourceLink: "#journey",
   },
 ];
 
@@ -76,114 +108,233 @@ const tags = [
 ];
 
 export function InstagramSection() {
-  return (
-    <section
-      className=" section instagram !grid-cols-1 !gap-8 !bg-[#ddf3ff] !px-[max(5vw,1.25rem)] !py-[clamp(5rem,9vw,9rem)] lg:!grid-cols-[minmax(230px,0.72fr)_minmax(0,1.28fr)] lg:!gap-[clamp(2.5rem,6vw,6rem)]"
-      id="instagramSection"
-    >
-      <div className="insta-copy !max-w-none">
-        <div className="eyebrow">07 / FROM INSTAGRAM</div>
-        <h2 className="!mb-5 !mt-6 !text-[clamp(3.8rem,8vw,7.6rem)] !leading-[0.82] !tracking-[-0.045em]">
-          MY INSTAGRAM
-          <br />
-          <em className="!text-[var(--orange)]">JOURNEY.</em>
-        </h2>
-        <p className="!max-w-[420px] !text-[0.98rem] !leading-[1.55]">
-          A peek into my daily learning, coding, projects, fitness, and life
-          as a student developer. Follow me on Instagram for real-time
-          updates, shorts, reels and more.
-        </p>
-        <a
-          className="!mt-7 !rounded-full !border !border-[var(--foreground)] !bg-[var(--foreground)] !px-4 !py-3 !text-[0.68rem] !tracking-[0.06em] !text-white !no-underline transition-transform duration-200 hover:-translate-y-1"
-          href="https://instagram.com/sonu.cs_2004"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <InstagramMark size={16} aria-hidden="true" /> Follow @sonu.cs_2004{" "}
-          <ArrowUpRight size={16} aria-hidden="true" />
-        </a>
-        <p className="!mt-12 !max-w-[270px] !font-[var(--display)] !text-[1.15rem] !leading-[0.95] !tracking-[0.01em]">
-          Same journey.
-          <br />
-          Different platform. <span className="!text-[var(--orange)]">→</span>
-        </p>
+  const [selectedPost, setSelectedPost] = useState<InstagramPost | null>(null);
+  const [communityCount, setCommunityCount] = useState(0);
 
-        <div className="!mt-12 !max-w-[390px] !border-t !border-[var(--border)] !pt-5">
-          <div className="!mb-4 !text-[0.64rem] !font-black !tracking-[0.14em]">
-            FOLLOW ME
-          </div>
-          <p className="!mb-5 !text-[0.82rem] !leading-[1.45]">
-            For daily updates, reels, shorts and my developer journey.
+  useEffect(() => {
+    const target = 1430;
+    const duration = 1400;
+    const start = performance.now();
+    let frame = 0;
+
+    const animateCount = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 3);
+      setCommunityCount(Math.round(target * easedProgress));
+
+      if (progress < 1) {
+        frame = requestAnimationFrame(animateCount);
+      }
+    };
+
+    frame = requestAnimationFrame(animateCount);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  return (
+    <section className="section instagram-section" id="instagramSection">
+      <div className="instagram-container">
+        {/* Left Column - Creator Bio */}
+        <div className="insta-copy">
+          <div className="eyebrow">07 / FROM INSTAGRAM FEED</div>
+          <h2 className="insta-title">
+            BUILD IN
+            <br />
+            <em className="orange">PUBLIC.</em>
+          </h2>
+          <p className="insta-intro">
+            My Instagram feed is where the spark happens — real-time updates, short reels, study notes, and late-night coding sessions. Here on my website is where the code &amp; PDFs expand.
           </p>
+
           <a
-            className="!mb-6 !inline-flex !items-center !gap-1 !text-[0.74rem] !font-black !tracking-[0.04em] !text-[var(--orange)]"
+            className="insta-follow-btn"
             href="https://instagram.com/sonu.cs_2004"
             target="_blank"
             rel="noreferrer"
           >
-            @sonu.cs_2004 <ArrowUpRight size={14} aria-hidden="true" />
+            <InstagramMark size={18} /> Follow @sonu.cs_2004{" "}
+            <ArrowUpRight size={16} />
           </a>
-          <div className="!grid !gap-3">
-            {tags.map(([label, detail]) => (
-              <div className="!grid !grid-cols-[72px_1fr] !gap-3 !text-[0.65rem]" key={label}>
-                <strong className="!font-black !tracking-[0.08em]">{label}</strong>
-                <span className="!opacity-70">{detail}</span>
+
+          <div className="insta-tag-block">
+            <div className="tag-block-title">CONTENT CATEGORIES</div>
+            <div className="tag-list">
+              {tags.map(([label, detail]) => (
+                <div className="tag-row" key={label}>
+                  <strong className="tag-label">{label}</strong>
+                  <span className="tag-detail">{detail}</span>
+                </div>
+              ))}
+            </div>
+            <div className="insta-community-count" aria-label="1430 people in the community">
+              <div className="community-count-icon">
+                <Users size={15} strokeWidth={2.5} aria-hidden="true" />
               </div>
+              <div>
+                <strong>{communityCount.toLocaleString()}+</strong>
+                <span>people in the community</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column - Feed Grid */}
+        <div className="insta-feed-box">
+          <div className="feed-header">
+            <div className="feed-header-left">
+              <InstagramMark className="text-orange" size={24} />
+              <div>
+                <div className="feed-title">LATEST FROM @sonu.cs_2004</div>
+                <div className="feed-subtitle">Click any reel or post to view deep-dive notes</div>
+              </div>
+            </div>
+            <a
+              className="feed-view-all"
+              href="https://instagram.com/sonu.cs_2004"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram <ArrowUpRight size={14} />
+            </a>
+          </div>
+
+          <div className="insta-grid">
+            {posts.map((post) => (
+              <motion.article
+                className="insta-post-card group"
+                key={post.id}
+                whileHover={{ y: -5 }}
+                onClick={() => setSelectedPost(post)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    setSelectedPost(post);
+                  }
+                }}
+              >
+                <div className="post-media-wrap">
+                  <Image
+                    className="post-image"
+                    src={post.image}
+                    alt={post.caption}
+                    width={500}
+                    height={600}
+                    sizes="(max-width: 639px) 100vw, 50vw"
+                  />
+                  <div className="post-overlay-chip">
+                    <span>{post.type}</span> • <span>{post.topicTag}</span>
+                  </div>
+                </div>
+                <div className="post-card-body">
+                  <p className="post-caption">{post.caption}</p>
+                  <div className="post-card-footer">
+                    <span className="expand-note-link">
+                      <Sparkles size={13} /> Deep Dive Notes
+                    </span>
+                    <ArrowUpRight size={14} className="arrow-icon" />
+                  </div>
+                </div>
+              </motion.article>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="!min-w-0 !rounded-[1.5rem] !border !border-white/80 !bg-white/75 !p-3 !shadow-[0_18px_45px_rgba(7,18,28,0.12)] sm:!p-5">
-        <div className="!mb-5 !flex !flex-wrap !items-center !justify-between !gap-4 !border-b !border-[var(--border)] !pb-4">
-          <div className="!flex !items-center !gap-3">
-            <InstagramMark className="!text-[var(--orange)]" size={23} aria-hidden="true" />
-            <div>
-              <div className="!text-[0.7rem] !font-black !tracking-[0.09em]">
-                LATEST FROM INSTAGRAM
-              </div>
-              <div className="!mt-1 !text-[0.72rem] !opacity-65">
-                Short updates. Big progress.
-              </div>
-            </div>
-          </div>
-          <a
-            className="!inline-flex !items-center !gap-1 !rounded-full !border !border-[var(--border)] !px-3 !py-2 !text-[0.62rem] !font-black !tracking-[0.04em] transition-colors duration-200 hover:!bg-[var(--foreground)] hover:!text-white"
-            href="https://instagram.com/sonu.cs_2004"
-            target="_blank"
-            rel="noreferrer"
+      {/* Instagram Post Deep-Dive Modal */}
+      <AnimatePresence>
+        {selectedPost && (
+          <div
+            className="modal-backdrop"
+            onClick={() => setSelectedPost(null)}
           >
-            View More on Instagram <ArrowUpRight size={14} aria-hidden="true" />
-          </a>
-        </div>
-
-        <div className="!grid !grid-cols-1 !gap-4 sm:!grid-cols-2">
-          {posts.map((post) => (
-            <article
-              className="group !overflow-hidden !rounded-[1rem] !border !border-[var(--border)] !bg-white !shadow-[0_8px_22px_rgba(7,18,28,0.08)] transition-transform duration-300 hover:-translate-y-1"
-              key={post.image}
+            <motion.div
+              className="modal-container insta-modal"
+              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0, scale: 0.94, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="instagram-modal-title"
             >
-              <div className="!relative !w-full !overflow-hidden !bg-[var(--foreground)]">
-                <Image
-                  className="!w-full !h-auto  "
-                  src={post.image}
-                  alt={post.caption}
-                  width={1080}
-                  height={1920}
-                  sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 38vw"
-                />
+              <div className="modal-header">
+                <div className="modal-header-meta">
+                  <span className="post-modal-badge">{selectedPost.type}</span>
+                  <span className="post-modal-topic">{selectedPost.topicTag}</span>
+                </div>
+                <button
+                  className="modal-close-btn"
+                  onClick={() => setSelectedPost(null)}
+                  aria-label="Close post details"
+                >
+                  <X size={20} />
+                </button>
               </div>
-              <div className="!p-3">
-               
-                <p className="!mb-2 !text-[0.78rem] !font-semibold !leading-[1.35]">
-                  {post.caption}
-                </p>
-               
+
+              <div className="insta-modal-body">
+                <div className="insta-modal-grid">
+                  <div className="insta-modal-media">
+                    <Image
+                      src={selectedPost.image}
+                      alt={selectedPost.caption}
+                      width={600}
+                      height={750}
+                      className="modal-post-img"
+                    />
+                  </div>
+
+                  <div className="insta-modal-details">
+                    <h3 id="instagram-modal-title" className="insta-modal-caption">{selectedPost.caption}</h3>
+
+                    <div className="insta-modal-section">
+                      <span className="section-label">
+                        <BookOpen size={15} className="text-orange" /> WHAT I BUILT / LEARNED
+                      </span>
+                      <p className="insta-modal-text">
+                        {selectedPost.deeperExplanation}
+                      </p>
+                    </div>
+
+                    <div className="insta-modal-section">
+                      <span className="section-label">
+                        <Code size={15} className="text-orange" /> KEY CONCEPT / CODE HIGHLIGHT
+                      </span>
+                      <code className="insta-modal-code">
+                        {selectedPost.codeOrKeyConcept}
+                      </code>
+                    </div>
+
+                    <div className="insta-modal-section">
+                      <span className="section-label">CONNECTED RESOURCE</span>
+                      <a
+                        href={selectedPost.relatedResourceLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="insta-resource-link"
+                      >
+                        <span>{selectedPost.relatedResourceName}</span>
+                        <ExternalLink size={15} />
+                      </a>
+                    </div>
+
+                    <a
+                      href="https://instagram.com/sonu.cs_2004"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="view-on-ig-btn"
+                    >
+                      <InstagramMark size={16} /> View Original Reel on Instagram
+                    </a>
+                  </div>
+                </div>
               </div>
-            </article>
-          ))}
-        </div>
-      </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

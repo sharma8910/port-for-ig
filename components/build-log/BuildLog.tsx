@@ -1,5 +1,5 @@
 import { buildLog } from "@/data/build-log";
-import { journey } from "@/data/journey";
+import { journeySummary } from "@/data/journey";
 import { BuildLogItem } from "./BuildLogItem";
 export function BuildLog() {
   return (
@@ -17,7 +17,7 @@ export function BuildLog() {
         </p>
       </div>
       <div className="journey">
-        {journey.map((entry, i) => (
+        {journeySummary.map((entry, i) => (
           <div className="journey-step" key={entry.day}>
             <span>{String(i + 1).padStart(2, "0")}</span>
             <strong>{entry.day}</strong>

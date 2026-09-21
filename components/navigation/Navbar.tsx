@@ -1,20 +1,26 @@
 "use client";
+
 import { motion } from "motion/react";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { MobileMenu } from "./MobileMenu";
 import Image from "next/image";
-const links = [
+
+export const navLinks = [
   { label: "HOME", href: "#top" },
+ 
   { label: "WORK", href: "#work" },
-  { label: "ABOUT", href: "#about" },
-  { label: "BUILD/SOURCE", href: "#building" },
+  { label: "VAULT", href: "#resources" },
+  { label: "JOURNEY", href: "#journey" },
+  { label: "TERMINAL", href: "#terminal" },
+  { label: "INSTAGRAM", href: "#instagramSection" },
   { label: "CONTACT", href: "#contact" },
-  { label: "INSTAGROWTH", href: "#instagramSection" },
 ];
+
 export function Navbar() {
   const [active, setActive] = useState("HOME");
   const [open, setOpen] = useState(false);
+
   return (
     <header className="nav-wrap">
       <nav className="nav" aria-label="Main navigation">
@@ -22,14 +28,14 @@ export function Navbar() {
           <Image
             className="nav-logo-image"
             src="/images/profile/nav-logo.png"
-            alt=""
+            alt="Sonu profile"
             width={34}
             height={34}
           />
           <span>sonu . cs_2004</span>
         </a>
         <div className="nav-links">
-          {links.map((link) => (
+          {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
@@ -55,7 +61,7 @@ export function Navbar() {
           {open ? <X /> : <Menu />}
         </button>
       </nav>
-      <MobileMenu open={open} />
+      <MobileMenu open={open} onClose={() => setOpen(false)} />
     </header>
   );
 }

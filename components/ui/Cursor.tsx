@@ -1,15 +1,29 @@
 "use client";
 import { motion, useMotionValue, useSpring } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
+
+const finePointerQuery = "(pointer: fine)";
+
+function subscribeToFinePointer(onStoreChange: () => void) {
+  const mediaQuery = window.matchMedia(finePointerQuery);
+  mediaQuery.addEventListener("change", onStoreChange);
+  return () => mediaQuery.removeEventListener("change", onStoreChange);
+}
+
+function getFinePointerSnapshot() {
+  return window.matchMedia(finePointerQuery).matches;
+}
 export function Cursor() {
   const x = useMotionValue(-20);
   const y = useMotionValue(-20);
   const sx = useSpring(x, { damping: 24, stiffness: 350 });
   const sy = useSpring(y, { damping: 24, stiffness: 350 });
-  const [enabled, setEnabled] = useState(false);
+  const enabled = useSyncExternalStore(
+    subscribeToFinePointer,
+    getFinePointerSnapshot,
+    () => false,
+  );
   useEffect(() => {
-    const q = matchMedia("(pointer:fine)");
-    setEnabled(q.matches);
     const move = (e: MouseEvent) => {
       x.set(e.clientX);
       y.set(e.clientY);

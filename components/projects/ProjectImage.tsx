@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function ProjectImage({
   theme,
   number,
@@ -12,7 +14,13 @@ export function ProjectImage({
   return (
     <div className={`project-image ${theme}`}>
       {image ? (
-        <img src={image} alt={alt ?? "Project preview"} className="project-preview" />
+        <Image
+          src={image}
+          alt={alt ?? "Project preview"}
+          className="project-preview"
+          fill
+          sizes="(max-width: 760px) 100vw, 50vw"
+        />
       ) : (
         <div className="code-window">
           <span />

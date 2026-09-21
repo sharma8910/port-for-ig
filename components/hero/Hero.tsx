@@ -1,13 +1,15 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { HeroBadge } from "./HeroBadge";
+import { CurrentlyBuilding } from "./CurrentlyBuilding";
 import { FloatingTech ,FloatingTechs} from "./FloatingTech";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import Image from "next/image";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap
@@ -43,7 +45,8 @@ export function Hero() {
           <FloatingTechs />
         </div>
         <div className="hero-intro">
-          <HeroBadge />
+          <HeroBadge onClick={() => setOpen((v) => !v)} ariaExpanded={open} />
+          {open && <CurrentlyBuilding compact />}
         </div>
         <h1 className="hero-title">
           <span className="hero-line">I BUILD</span>

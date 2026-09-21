@@ -4,7 +4,7 @@ import { TechPill } from "./TechPill";
 export function TechStack() {
   return (
     <section className="section tech-stack">
-      <div className="eyebrow">05 / TOOLKIT</div>
+      <div className="eyebrow">06 / TOOLKIT</div>
       <h2>
         WHAT  I  BUILD
         <br />
