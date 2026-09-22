@@ -1,9 +1,9 @@
 "use client";
 import { useLenis } from "@/hooks/useLenis";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 
 export function SmoothScroll() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     const previousScrollRestoration = window.history.scrollRestoration;
     window.history.scrollRestoration = "manual";
 
@@ -15,9 +15,19 @@ export function SmoothScroll() {
       );
     }
 
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    const resetScroll = () => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+
+    resetScroll();
+    const frame = window.requestAnimationFrame(resetScroll);
+    const timeout = window.setTimeout(resetScroll, 0);
 
     return () => {
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(timeout);
       window.history.scrollRestoration = previousScrollRestoration;
     };
   }, []);
