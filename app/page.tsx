@@ -25,7 +25,6 @@ export default function Home() {
       <Navbar />
       <Hero />
       <About />
-      
       <Projects />
       <ResourceVault />
       <Journey />
