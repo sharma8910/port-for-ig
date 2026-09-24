@@ -165,6 +165,9 @@ em {
 .mobile-menu {
   display: none;
 }
+.bottom-nav {
+  display: none;
+}
 .hero {
   min-height: 100svh;
   position: relative;
@@ -1118,6 +1121,53 @@ footer strong {
     font-size: 0.7rem;
     font-weight: 900;
     letter-spacing: 0.1em;
+  }
+  .bottom-nav {
+    position: fixed;
+      z-index: 30;
+    right: 0.75rem;
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+    left: 0.75rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 0.45rem 0.35rem;
+    background: rgba(246, 253, 255, 0.86);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 1.25rem;
+    box-shadow: 0 12px 35px rgba(7, 18, 28, 0.18);
+  }
+  .bottom-nav a {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    padding: 0.45rem 0.15rem;
+    color: rgba(7, 18, 28, 0.58);
+    font-size: 0.48rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    transition: color 180ms ease, transform 180ms ease;
+  }
+  .bottom-nav a.active {
+    color: #fff;
+    transform: translateY(-1px);
+  }
+  .bottom-nav a.active::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0.1rem 0.2rem;
+    background: #07121c;
+    border-radius: 0.9rem;
+  }
+  .bottom-nav svg {
+    width: 1.1rem;
+    height: 1.1rem;
   }
   .hero {
     padding-top: 8rem;

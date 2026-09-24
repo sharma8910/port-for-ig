@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { BriefcaseBusiness, Home, Library, Mail, Menu, Route, X } from "lucide-react";
 import { MobileMenu } from "./MobileMenu";
 import Image from "next/image";
 
@@ -17,11 +17,20 @@ export const navLinks = [
   { label: "CONTACT", href: "#contact" },
 ];
 
+const bottomNavLinks = [
+  { label: "HOME", href: "#top", Icon: Home },
+  { label: "WORK", href: "#work", Icon: BriefcaseBusiness },
+  { label: "VAULT", href: "#resources", Icon: Library },
+  { label: "JOURNEY", href: "#journey", Icon: Route },
+  { label: "CONTACT", href: "#contact", Icon: Mail },
+];
+
 export function Navbar() {
   const [active, setActive] = useState("HOME");
   const [open, setOpen] = useState(false);
 
   return (
+    <>
     <header className="nav-wrap">
       <nav className="nav" aria-label="Main navigation">
         <a className="nav-logo" href="#top">
@@ -63,5 +72,20 @@ export function Navbar() {
       </nav>
       <MobileMenu open={open} onClose={() => setOpen(false)} />
     </header>
+    <nav className="bottom-nav" aria-label="Quick navigation">
+      {bottomNavLinks.map(({ label, href, Icon }) => (
+        <a
+          key={label}
+          href={href}
+          onClick={() => setActive(label)}
+          className={active === label ? "active" : ""}
+          aria-current={active === label ? "page" : undefined}
+        >
+          <Icon aria-hidden="true" strokeWidth={active === label ? 2.5 : 2} />
+          <span>{label}</span>
+        </a>
+      ))}
+    </nav>
+    </>
   );
 }
