@@ -83,3 +83,44 @@ export function FloatingTechs() {
     </div>
   );
 }
+
+export function FloatingTechss() {
+  const tech = [
+    {
+      label: "SD INTERVIEW pdf",
+      detail: "System Design Interview by Alex Xu",
+      href: "https://drive.google.com/file/d/1VNCL-OsyyXFGnMUE2mzWl5ZOjdLkTG_o/view?usp=sharing",
+    },
+  ];
+  return (
+    <div className="floating-tech">
+      {tech.map(({ label, detail, href }, i) => (
+        <motion.a
+          key={label}
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+          className={`tech tech-${i}`}
+          animate={{
+            y: [0, i % 2 ? -10 : 9, 0],
+            rotate: [0, i % 2 ? -1 : 1, 0],
+          }}
+          transition={{
+            duration: 4 + (i % 3),
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          whileHover={{ y: -5, rotate: 0, scale: 1.04 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <span className="tech-mark" aria-hidden="true" />
+          <span className="tech-copy">
+            <strong>{label}</strong>
+            <small>{detail}</small>
+          </span>
+          <ArrowUpRight className="tech-arrow" size={18} aria-hidden="true" />
+        </motion.a>
+      ))}
+    </div>
+  );
+}

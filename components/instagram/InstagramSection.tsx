@@ -112,8 +112,8 @@ export function InstagramSection() {
   const [communityCount, setCommunityCount] = useState(0);
 
   useEffect(() => {
-    const target = 1430;
-    const duration = 1400;
+    const target = 2000;
+    const duration = 1100; // 1.5 seconds
     const start = performance.now();
     let frame = 0;
 

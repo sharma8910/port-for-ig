@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { HeroBadge } from "./HeroBadge";
 import { CurrentlyBuilding } from "./CurrentlyBuilding";
-import { FloatingTech ,FloatingTechs} from "./FloatingTech";
+import { FloatingTech ,FloatingTechs,FloatingTechss} from "./FloatingTech";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import Image from "next/image";
 
@@ -43,6 +43,7 @@ export function Hero() {
         <div className="hero-floating-links">
           <FloatingTech />
           <FloatingTechs />
+          <FloatingTechss/>
         </div>
         <div className="hero-intro">
           <HeroBadge onClick={() => setOpen((v) => !v)} ariaExpanded={open} />

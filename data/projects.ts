@@ -16,28 +16,29 @@ export type Project = {
   status: "Production" | "Active Build" | "Prototyping";
 };
 
-export const projects: Project[] = [
-  {
+export const projects: Project[] = [ 
+   {
     id: "01",
     title: "ASK MY NOTES\nKNOWLEDGE SYSTEM",
     tagline: "RAG-Powered Personal Knowledge Engine",
     description: "A RAG-powered knowledge system that lets you query your own PDFs and documents in natural language, with source-grounded answers.",
     problem: "Navigating through lengthy PDFs, course materials, and lecture notes manually takes hours when looking for precise technical answers.",
-    solution: "Built an end-to-end RAG pipeline that ingests PDFs, chunks text semantically, generates vector embeddings, stores them in PostgreSQL with pgvector, and retrieves grounded context for LLM response generation.",
+    solution: "Built an end-to-end RAG pipeline that ingests PDFs, chunks text semantically, generates vector embeddings locally via an Ollama model, and stores them in PostgreSQL with pgvector. Relevance is computed manually using the cosine similarity (dot product) formula between the question's embedding and each stored chunk embedding, and the top-scoring chunk is returned as the grounded response.",
     architecture: [
       "PDF Upload & Semantic Text Chunking",
-      "Vector Embeddings Generation via OpenAI / HuggingFace",
-      "Vector Similarity Search via PostgreSQL (pgvector)",
-      "Context Assembly & Prompt Synthesis",
-      "Streaming Answer Generation via FastAPI API"
+      "Vector Embeddings Generation via Local Ollama Model",
+      "Chunk Embeddings Stored in PostgreSQL (pgvector)",
+      "Query Embedding via Same Ollama Model",
+      "Manual Cosine Similarity (Dot Product) Scoring Across Chunks",
+      "Top-1 Highest-Scoring Chunk Selected as Response Context"
     ],
-    technologies: ["FastAPI", "Python", "PostgreSQL", "pgvector", "Embeddings", "RAG", "Next.js"],
+    technologies: ["FastAPI", "Python", "PostgreSQL", "pgvector", "Ollama", "Embeddings", "RAG", "Next.js"],
     challenges: [
       "Optimizing chunk overlapping strategy to preserve code snippet context.",
       "Reducing vector search latency under 80ms across thousands of document pages."
     ],
     learnings: [
-      "Deep understanding of vector distance metrics (Cosine vs L2).",
+      "Deep understanding of vector distance metrics (Cosine vs L2), implemented manually rather than relying on a managed embedding API.",
       "How to design fallback prompts when context confidence is below threshold."
     ],
     theme: "violet",
@@ -52,15 +53,15 @@ export const projects: Project[] = [
     tagline: "Realtime AI Moderation & Threat Shield",
     description: "Refining the safety flow and product experience while shaping the final AI moderation system for young internet users.",
     problem: "Online communication platforms expose younger users to harmful content, cyberbullying, and unsafe interactions without proactive realtime safeguards.",
-    solution: "Building an automated safety gateway combining NLP toxicity scoring, ChromaDB vector indexing of unsafe patterns, and fast Redis state caching for immediate automated flagging.",
+    solution: "Building an automated safety gateway combining NLP toxicity scoring, ChromaDB vector indexing of unsafe patterns, and fast Redis state caching for immediate automated flagging and block the website access for the child, while notifying the parent and guardian in realtime.",
     architecture: [
       "Inbound Content Stream & Event Listener",
-      "Fast Redis In-Memory Rate & State Check",
+      "Fast Redis In-Memory Rate & State Check for saved domain by parents",
       "ChromaDB Vector Matching against Threat Pattern Database",
       "Multi-label NLP Classification Engine",
-      "Automated Moderation & Guardian Notification Webhook"
+      "Automated Moderation & Guardian Notification Webhook and visited webpage by child"
     ],
-    technologies: ["Node.js", "Python", "ChromaDB", "Redis", "FastAPI", "Docker"],
+    technologies: ["Node.js", "Python", "ChromaDB", "Redis", "FastAPI", "React", "NLP", "Toxicity Scoring", "Vector Indexing"],
     challenges: [
       "Eliminating false positives in conversational slang.",
       "Achieving sub-50ms moderation response time without blocking user message streams."

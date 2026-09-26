@@ -18,7 +18,7 @@ export const journeyStages: JourneyStage[] = [
     stageNumber: "01",
     phase: "FOUNDATION",
     title: "DSA & Problem Solving",
-    subtitle: "C++ • Arrays • Trees • Graphs • Dynamic Programming",
+    subtitle: "C++ • Arrays • Trees • Graphs • Linked Lists • DP • Recursion",
     period: "Phase 1",
     summary: "Built computational stamina by grinding algorithms in C++, understanding time complexity, memory allocation, and data structures from scratch.",
     keySkills: ["C++", "Pointers & Memory", "Trees & Binary Search", "Graphs BFS/DFS", "DP Memoization"],
@@ -60,7 +60,7 @@ export const journeyStages: JourneyStage[] = [
     subtitle: "Python • Vector DBs • Embeddings • LLM Grounding • ChromaDB",
     period: "Phase 4",
     summary: "Exploring artificial intelligence, building RAG knowledge systems that index raw document text into vector spaces for source-grounded LLM responses.",
-    keySkills: ["Python", "FastAPI", "RAG Architecture", "OpenAI / HuggingFace Embeddings", "pgvector", "ChromaDB"],
+    keySkills: ["Python", "FastAPI", "RAG Architecture", "OpenAI / HuggingFace", "Embeddings", "pgvector", "ChromaDB"],
     keyProjects: ["Ask My Notes Knowledge System", "Child Online Safety AI Protocol"],
     mindsetShift: "From deterministic logic to probabilistic LLM outputs grounded by vector context.",
     status: "Active Focus",
@@ -81,7 +81,7 @@ export const journeyStages: JourneyStage[] = [
 ];
 
 export const journeySummary = [
-  { day: "START", text: "Began with web development & C++ programming fundamentals" },
+  { day: "START", text: "Began with web development & C/C++ programming fundamentals" },
   { day: "BUILD", text: "Deepened into backend engineering, databases, and system design" },
   { day: "EXPLORE", text: "Ventured into AI, vector databases, RAG pipelines, and LLM-powered applications" },
   { day: "NOW", text: "Building production-grade backend + AI systems & documenting live on Instagram" },

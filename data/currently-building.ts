@@ -13,8 +13,8 @@ export type CurrentlyBuilding = {
 export const currentlyBuildingData: CurrentlyBuilding = {
   projectTitle: "CHILD ONLINE SAFETY PLATFORM",
   tagline: "AI-Powered Parental Control System",
-  progressPercent: 80,
-  activeBranch: "feature/ai-domain-classification",
+  progressPercent: 90,
+  activeBranch: "finat testing of the AI moderation engine and Redis caching for real-time threat detection and place to deploy the system in a production environment.",
   statusText: "Wired a Python AI worker into the Node backend: unclassified domains get fetched, embedded, and matched against category examples in ChromaDB, with Redis caching the results.",
   techStack: ["Node.js", "Express", "MongoDB Atlas", "Redis", "React", "Chrome Extension (MV3)", "FastAPI", "sentence-transformers", "ChromaDB"],
   learningTarget: "Building a full-stack system end-to-end: browser extension enforcement, cache invalidation strategy, and semantic classification with local embeddings instead of an LLM API.",
