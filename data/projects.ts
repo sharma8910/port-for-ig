@@ -71,8 +71,12 @@ export const projects: Project[] = [
       "Designing human-in-the-loop audit logs for safety moderation."
     ],
     theme: "orange",
-    githubUrl: "https://github.com/sharma8910",
-    status: "Active Build"
+    githubUrl: "https://github.com/sharma8910/COSP",
+    status: "Production",
+    image: "/images/projects/COSP.png",
+    liveUrl: "https://cosp-1.onrender.com/"
+
+
   },
   {
     id: "03",

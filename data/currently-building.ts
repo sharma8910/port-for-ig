@@ -13,11 +13,11 @@ export type CurrentlyBuilding = {
 export const currentlyBuildingData: CurrentlyBuilding = {
   projectTitle: "CHILD ONLINE SAFETY PLATFORM",
   tagline: "AI-Powered Parental Control System",
-  progressPercent: 97,
-  activeBranch: "only deployement left and deploying the pytorch model is quite hard ",
+  progressPercent: 100,
+  activeBranch: "deployed done working  ",
   statusText: "Wired a Python AI worker into the Node backend: unclassified domains get fetched, embedded, and matched against category examples in ChromaDB, with Redis caching the results.",
   techStack: ["Node.js", "Express", "MongoDB Atlas", "Redis", "React", "Chrome Extension (MV3)", "FastAPI", "sentence-transformers", "ChromaDB"],
-  learningTarget: "Building a full-stack system end-to-end: browser extension enforcement, cache invalidation strategy, and semantic classification with local embeddings instead of an LLM API.",
+  learningTarget: "full-stack system end-to-end: browser extension enforcement, cache invalidation strategy, and semantic classification with local embeddings instead of an LLM API.",
   lastUpdated: "Active Today",
   githubUrl: "https://github.com/sharma8910",
 };
