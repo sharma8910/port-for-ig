@@ -13,6 +13,8 @@ export type Project = {
   image?: string;
   githubUrl?: string;
   liveUrl?: string;
+  downloadUrl?: string;
+  installationSteps?: string[];
   status: "Production" | "Active Build" | "Prototyping";
 };
 
@@ -50,9 +52,9 @@ export const projects: Project[] = [
   {
     id: "02",
     title: "CHILD ONLINE SAFETY PROTOCOL\nAI SYSTEM",
-    tagline: "Realtime AI Moderation & Threat Shield",
+    tagline: "Realtime AI Moderation & Threat Shield for u child from harmful website",
     description: "Refining the safety flow and product experience while shaping the final AI moderation system for young internet users.",
-    problem: "Online communication platforms expose younger users to harmful content, cyberbullying, and unsafe interactions without proactive realtime safeguards.",
+    problem: "Online website platforms expose younger users to harmful content, cyberbullying, and unsafe interactions without proactive realtime safeguards.",
     solution: "Building an automated safety gateway combining NLP toxicity scoring, ChromaDB vector indexing of unsafe patterns, and fast Redis state caching for immediate automated flagging and block the website access for the child, while notifying the parent and guardian in realtime.",
     architecture: [
       "Inbound Content Stream & Event Listener",
@@ -68,13 +70,23 @@ export const projects: Project[] = [
     ],
     learnings: [
       "Event-driven backend architecture using Redis pub/sub.",
-      "Designing human-in-the-loop audit logs for safety moderation."
+      "Designing human-in-the-loop audit logs for safety moderation.",
+      "learning about Saas and working of Chrome extension "
     ],
     theme: "orange",
     githubUrl: "https://github.com/sharma8910/COSP",
     status: "Production",
     image: "/images/projects/COSP.png",
-    liveUrl: "https://cosp-1.onrender.com/"
+    liveUrl: "https://cosp-1.onrender.com/",
+    downloadUrl: "/downloads/cosp-extension.zip",
+    installationSteps: [
+      "Download and extract cosp-extension.zip.",
+      "Open chrome://extensions in Chrome.",
+      "Enable Developer mode and select Load unpacked.",
+      "Select the extracted extension folder.",
+      "Open the parent dashboard and add your child to generate or obtain their activation token.",
+      "Open the extension, enter the token if prompted, and activate it."
+    ]
 
 
   },

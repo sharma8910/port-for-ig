@@ -1646,6 +1646,24 @@ footer strong {
   margin: 0;
   color: #1e293b;
 }
+.installation-guide {
+  margin-bottom: 1.5rem;
+  border-left: 3px solid var(--orange);
+}
+.installation-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem 1.5rem;
+  margin: 0.8rem 0 0;
+  padding-left: 1.35rem;
+  color: #1e293b;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.installation-steps li::marker {
+  color: var(--orange);
+  font-weight: 900;
+}
 .architecture-box {
   margin-bottom: 1.5rem;
 }
@@ -2587,6 +2605,7 @@ footer strong {
 @media (max-width: 900px) {
   .building-content-grid,
   .modal-grid,
+  .installation-steps,
   .vault-header,
   .stage-card-grid,
   .visualizer-grid,

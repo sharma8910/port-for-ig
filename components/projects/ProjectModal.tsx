@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { X, ExternalLink, Code2, CheckCircle2, AlertTriangle, Layers, Lightbulb } from "lucide-react";
+import { X, ExternalLink, Code2, Download, CheckCircle2, AlertTriangle, Layers, Lightbulb, Settings } from "lucide-react";
 import type { Project } from "@/data/projects";
 
 type ProjectModalProps = {
@@ -78,7 +78,30 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   <ExternalLink size={16} /> Live Demo
                 </a>
               )}
+              {project.downloadUrl && (
+                <a
+                  href={project.downloadUrl}
+                  download="cosp-extension.zip"
+                  className="modal-btn modal-btn-dark"
+                >
+                  <Download size={16} /> Download Extension
+                </a>
+              )}
             </div>
+
+            {project.installationSteps && (
+              <div className="modal-section-box installation-guide">
+                <div className="modal-section-title">
+                  <Settings size={17} className="text-orange" />
+                  <span>EXTENSION INSTALLATION</span>
+                </div>
+                <ol className="installation-steps">
+                  {project.installationSteps.map((step) => (
+                    <li key={step}>{step}</li>
+                  ))}
+                </ol>
+              </div>
+            )}
 
             <div className="modal-grid">
               <div className="modal-section-box problem-box">
